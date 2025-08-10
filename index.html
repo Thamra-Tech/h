@@ -1,533 +1,66 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThamraTech | ثمرة تك </title>
     <link rel="icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEjzBCrRo0kdSbbCDAtDiWQzLmybqE3mHCYvRapwVSJLBkY5RFE8nSeSxcUid8rqrh7wVc4BcjqxNmvbZqAqlWPuMHQsUi4hhPR7uxCSJqlE7O0QPYWunbPVarphgWYN2PbYQUlvutuFbHXYQ5YiQP1KWGUa9BAaeQuaSJBQulqQvpuL2NprLNhZClCTf0v0">
-    <!-- تضمين مكتبة Tailwind CSS من CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- تضمين مكتبة Font Awesome للأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- تضمين خط Cairo من Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* إضافة خط عربي احترافي */
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #f7fafc;
-            color: #2d3748;
+        body{
+            background-color: #001800;
+            font-family: 'Courier New', Courier, monospace;
         }
-        /* تصميم زر القائمة المتجاوب */
-        .hamburger-icon {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 2rem;
-            height: 2rem;
-            z-index: 60; /* للتأكد من ظهوره فوق القائمة */
-        }
-        .line {
-            width: 2rem;
-            height: 0.25rem;
-            background-color: #16a34a;
-            border-radius: 10px;
-            transition: all 0.3s linear;
-            transform-origin: 1px;
-        }
-        .open .line:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .open .line:nth-child(2) {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        .open .line:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-        /* تصميم شريط التمرير */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* تصميم قسم الخلفية الرئيسية */
-        .hero-bg {
-            background-image: url('https://blogger.googleusercontent.com/img/a/AVvXsEhfps6zpqte4yRMdHLJ7UYng1D_fbl1K7oDOrkXPSP7V8Ar3m-HXKVXibehHLjYP8MePCDtZsd6MG5TYJoegjf7aP0HwOzUEt16qOtj1ceHKDxEC2Bpjmd3Xw0596l_OQMb0Ka_LTY88h6paGMS42tkBL5tCExeB9NY0wBgk_7iYfms0QWoMGSqO0lenKCp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        /* تصميم Toast Notification */
-        .toast-container {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 1.5rem;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 1rem;
-        }
-        .toast {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(100%);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
-        }
-        .toast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        /* الرسوم المتحركة */
-        @keyframes fadeInRight {
-            0% { opacity: 0; transform: translateX(-50px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-        .animate-fade-in-right {
-            animation: fadeInRight 0.8s ease-in-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
+        .loader {
+    width: 150px;
+    height: 150px;
+    background-color: #004b00;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
+      0 5px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+  .loader:before,
+  .loader:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    top: -40%;
+    background-color: #fff;
+    animation: wave 5s linear infinite;
+  }
+  .loader:before {
+    border-radius: 30%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: wave 5s linear infinite;
+  }
+  @keyframes wave {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .center {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
     </style>
 </head>
-<body class="font-cairo">
+<body>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="toast-container"></div>
-
-    <!-- شريط التنقل (Navbar) -->
-    <header class="bg-white sticky top-0 z-50 shadow-md p-4">
-        <nav class="container mx-auto flex justify-between items-center">
-            <!-- الشعار -->
-            <a href="#" class="text-2xl font-bold text-green-700">ThamraTech</a>
-            
-            <!-- قائمة التنقل للكمبيوتر -->
-            <ul class="hidden md:flex space-x-8 space-x-reverse text-lg">
-                <li><a href="#hero" class="text-gray-600 hover:text-green-600 transition-colors">الرئيسية</a></li>
-                <li><a href="#services" class="text-gray-600 hover:text-green-600 transition-colors">الخدمات</a></li>
-                <li><a href="#why-us" class="text-gray-600 hover:text-green-600 transition-colors">لماذا نحن</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-green-600 transition-colors">من نحن</a></li>
-                <li><a href="#contact" class="text-gray-600 hover:text-green-600 transition-colors">تواصل معنا</a></li>
-            </ul>
-
-            <!-- زر "انضم إلينا" -->
-            <a href="https://thamra-tech.github.io/join-Us/" target="_blank" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-lg font-medium rounded-xl shadow-sm text-white bg-green-600 hover:bg-green-700 transition-colors">
-                انضم إلينا
-            </a>
-            
-            <!-- زر القائمة المتجاوبة (Hamburger) -->
-            <div id="menu-btn" class="md:hidden">
-                <div class="hamburger-icon">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-            </div>
-        </nav>
-        
-        <!-- القائمة المتجاوبة (Mobile Menu) -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 transition-all duration-300">
-            <ul class="flex flex-col items-center space-y-4 text-lg">
-                <li><a href="#hero" class="text-gray-600 hover:text-green-600 transition-colors block py-2">الرئيسية</a></li>
-                <li><a href="#services" class="text-gray-600 hover:text-green-600 transition-colors block py-2">الخدمات</a></li>
-                <li><a href="#why-us" class="text-gray-600 hover:text-green-600 transition-colors block py-2">لماذا نحن</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-green-600 transition-colors block py-2">من نحن</a></li>
-                <li><a href="#contact" class="text-gray-600 hover:text-green-600 transition-colors block py-2">تواصل معنا</a></li>
-                <li><a href="https://thamra-tech.github.io/join-Us/" class="inline-flex items-center px-4 py-2 text-lg font-medium rounded-xl shadow-sm text-white bg-green-600 hover:bg-green-700 transition-colors">انضم إلينا</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <main>
-        <!-- قسم الرئيسية (Hero Section) -->
-        <section id="hero" class="hero-bg text-center py-20 md:py-40 text-white bg-green-700 bg-opacity-70">
-            <div class="container mx-auto px-4">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">حلول زراعية مبتكرة لمستقبل أخضر</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 animate-fade-in-up" style="animation-delay: 0.3s;">نقدم لك الخبرة والمعرفة اللازمة لتحقيق أقصى إنتاجية من محاصيلك بأفضل الطرق العلمية والعملية.</p>
-                <a href="#services" class="bg-white text-green-700 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.5s;">
-                    اكتشف المزيد
-                </a>
-            </div>
-        </section>
-
-        <!-- قسم الخدمات (Services Section) -->
-        <section id="services" class="py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-800">خدماتنا</h2>
-                <p class="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">نقدم مجموعة واسعة من الخدمات لتلبية جميع احتياجاتك الزراعية.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- كارت المقالات -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform border border-green-100 animate-fade-in-right" style="animation-delay: 0.1s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-seedling text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-green-800">مقالات متنوعة</h3>
-                        <p class="text-gray-600">اكتشف معلومات شاملة عن المحاصيل، الأمراض، الآفات، والتغذية والتسميد.</p>
-                        <a href="https://thamra-tech.github.io/articles/" class="mt-4 inline-block w-full bg-green-500 text-white py-2 px-4 rounded-xl hover:bg-green-600 transition-colors duration-300 transform hover:scale-105">اقرأ المقالات</a>
-                    </div>
-                    <!-- كارت الاستشارة -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform border border-green-100 animate-fade-in-right" style="animation-delay: 0.3s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-comments text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-green-800">استشارة زراعية</h3>
-                        <p class="text-gray-600">تواصل مع أفضل المهندسين الزراعيين للحصول على نصائح مخصصة.</p>
-                        <a href="https://thamra-tech.github.io/agricultural-engineers/" class="mt-4 inline-block w-full bg-green-500 text-white py-2 px-4 rounded-xl hover:bg-green-600 transition-colors duration-300 transform hover:scale-105">اطلب استشارة</a>
-                    </div>
-                    <!-- كارت المنتجات -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform border border-green-100 animate-fade-in-right" style="animation-delay: 0.5s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-store text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-green-800">منتجات المبيدات</h3>
-                        <p class="text-gray-600">اطلع على قائمة محلات المبيدات الموثوقة ومنتجاتها.</p>
-                        <a href="https://thamra-tech.github.io/pesticide-stores/" class="mt-4 inline-block w-full bg-green-500 text-white py-2 px-4 rounded-xl hover:bg-green-600 transition-colors duration-300 transform hover:scale-105">تصفح المنتجات</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم لماذا تتابعنا (Why Us Section) -->
-        <section id="why-us" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-800">لماذا تختار ثمرة تك؟</h2>
-                <p class="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">نقدم لك مجموعة من المميزات التي تجعلنا الخيار الأفضل في المجال الزراعي.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- كارت الميزة 1 -->
-                    <div class="card bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 animate-fade-in-right" style="animation-delay: 0.1s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-book text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-green-800">محتوى علمي دقيق</h3>
-                        <p class="text-gray-600 text-sm">مقالاتنا مكتوبة ومراجعة من قبل خبراء في المجال الزراعي.</p>
-                    </div>
-                    <!-- كارت الميزة 2 -->
-                    <div class="card bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 animate-fade-in-right" style="animation-delay: 0.3s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-user-tie text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-green-800">استشارات فورية</h3>
-                        <p class="text-gray-600 text-sm">تواصل مباشر مع مهندسين زراعيين متخصصين عبر منصتنا.</p>
-                    </div>
-                    <!-- كارت الميزة 3 -->
-                    <div class="card bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 animate-fade-in-right" style="animation-delay: 0.5s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-magnifying-glass-plus text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-green-800">حلول متكاملة</h3>
-                        <p class="text-gray-600 text-sm">من التشخيص إلى العلاج، نوفر لك الحلول الكاملة لمشاكلك.</p>
-                    </div>
-                    <!-- كارت الميزة 4 -->
-                    <div class="card bg-gray-50 p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 animate-fade-in-right" style="animation-delay: 0.7s;">
-                        <div class="bg-green-500 text-white rounded-full p-3 w-fit mb-4 mx-auto">
-                            <i class="fa-solid fa-users text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-green-800">شبكة واسعة</h3>
-                        <p class="text-gray-600 text-sm">نجمع أفضل المهندسين والمحلات في مكان واحد لخدمتك.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم الإنجازات (Achievements Section) -->
-        <section id="achievements" class="py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-green-800">أرقامنا تتحدث عن نجاحنا</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-                    <!-- كارت عدد الاستشارات -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform animate-fade-in-right" style="animation-delay: 0.1s;">
-                        <h3 class="text-5xl md:text-6xl font-bold text-green-700" data-target="1500">0</h3>
-                        <p class="mt-2 text-lg text-gray-600">استشارة</p>
-                    </div>
-                    <!-- كارت عدد المقالات -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform animate-fade-in-right" style="animation-delay: 0.3s;">
-                        <h3 class="text-5xl md:text-6xl font-bold text-green-700" data-target="500">0</h3>
-                        <p class="mt-2 text-lg text-gray-600">مقالة</p>
-                    </div>
-                    <!-- كارت عدد المستخدمين -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform animate-fade-in-right" style="animation-delay: 0.5s;">
-                        <h3 class="text-5xl md:text-6xl font-bold text-green-700" data-target="10000">0</h3>
-                        <p class="mt-2 text-lg text-gray-600">مستخدم</p>
-                    </div>
-                    <!-- كارت عدد المهندسين -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform animate-fade-in-right" style="animation-delay: 0.7s;">
-                        <h3 class="text-5xl md:text-6xl font-bold text-green-700" data-target="250">0</h3>
-                        <p class="mt-2 text-lg text-gray-600">مهندس زراعي</p>
-                    </div>
-                    <!-- كارت عدد المحلات -->
-                    <div class="card bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 transform animate-fade-in-right" style="animation-delay: 0.9s;">
-                        <h3 class="text-5xl md:text-6xl font-bold text-green-700" data-target="100">0</h3>
-                        <p class="mt-2 text-lg text-gray-600">محل مبيدات</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم من نحن (About Us Section) -->
-        <section id="about" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-800">من نحن</h2>
-                <p class="text-gray-600 text-lg mb-8 max-w-3xl mx-auto">نحن في ثمرة تك نؤمن بأن التكنولوجيا هي مفتاح تطوير القطاع الزراعي. نسعى لتقديم منصة متكاملة تجمع بين الخبرة العلمية والتطبيق العملي لتمكين المزارعين والمهندسين الزراعيين من تحقيق أفضل النتائج.</p>
-                <a href="https://thamra-tech.github.io/join-Us/" class="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-xl shadow-sm text-white bg-green-600 hover:bg-green-700 transition-colors transform hover:scale-105">
-                    انضم إلينا
-                </a>
-            </div>
-        </section>
-
-        <!-- قسم تواصل معنا (Contact Us Section) -->
-        <section id="contact" class="py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="text-center">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-800">تواصل معنا</h2>
-                    <p class="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">يسعدنا تلقي استفساراتكم وملاحظاتكم. لا تتردد في التواصل معنا عبر الطرق التالية.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- معلومات التواصل -->
-                    <div class="flex flex-col items-center lg:items-start text-center lg:text-right">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-green-500 text-white rounded-full p-2 ml-4">
-                                <i class="fa-solid fa-envelope text-lg"></i>
-                            </span>
-                            <a href="mailto:thamratech25@gmail.com" class="text-lg text-gray-700 hover:text-green-600">thamratech25@gmail.com</a>
-                        </div>
-                        <div class="flex items-center mb-4">
-                            <span class="bg-green-500 text-white rounded-full p-2 ml-4">
-                                <i class="fa-solid fa-phone text-lg"></i>
-                            </span>
-                            <a href="tel:+201501021670" class="text-lg text-gray-700 hover:text-green-600">+20 150 102 1670</a>
-                        </div>
-                        <!-- أيقونات السوشيال ميديا -->
-                        <div class="flex space-x-4 space-x-reverse mt-6">
-                            <a target="_blank" href="https://www.facebook.com/profile.php?id=61579471070182&mibextid=ZbWKwL" class="text-gray-500 hover:text-green-600 transition-colors">
-                                <i class="fa-brands fa-facebook-f text-2xl"></i>
-                            </a>
-                            <a href="#" class="text-gray-500 hover:text-green-600 transition-colors">
-                                <i class="fa-brands fa-x-twitter text-2xl"></i>
-                            </a>
-                            <a href="#" class="text-gray-500 hover:text-green-600 transition-colors">
-                                <i class="fa-brands fa-instagram text-2xl"></i>
-                            </a>
-                            <a href="#" class="text-gray-500 hover:text-green-600 transition-colors">
-                                <i class="fa-brands fa-linkedin-in text-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- نموذج التواصل -->
-                    <div class="w-full">
-                        <form id="contact-form" class="bg-white p-8 rounded-xl shadow-lg">
-                            <div class="mb-4">
-                                <label for="name" class="block text-gray-700 font-medium mb-2">الاسم</label>
-                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
-                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                            </div>
-                            <div class="mb-6">
-                                <label for="message" class="block text-gray-700 font-medium mb-2">الرسالة</label>
-                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-green-700 transition-colors shadow-lg transform hover:scale-105">إرسال الرسالة</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- تذييل الصفحة (Footer) -->
-    <footer class="bg-green-800 text-white py-12">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- قسم الشعار والوصف -->
-            <div class="mb-6 md:mb-0 text-center md:text-right">
-                <div class="flex justify-center md:justify-start mb-4">
-                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhWHpPFdGDJNmAhr8cuWAy_PCRYwv0puy9jpemeKag8FTOOdlfXOw_AFbpo1S9HYu-zQuYeSW3twIFRtLR_aCHryUZXpbW9xVFWULftjJp6u08s52o5rQm52vYcxGFSk3eujBicYgpV3QyY2XvkAxAFpzi5ur5R4laNUW4zMTHCsB401L17L_a39pBq4DE_" alt="Thamra-Tech" class="w-[80px]">
-                </div>
-                <h3 class="text-xl font-bold mb-2">ThamraTech</h3>
-                <p class="text-gray-300 text-sm max-w-sm mx-auto md:mx-0">
-                    منصة متكاملة لتقديم الحلول والاستشارات الزراعية المتطورة، تهدف إلى تمكين المزارعين والمهندسين.
-                </p>
-            </div>
-
-            <!-- قسم الروابط السريعة -->
-            <div class="text-center md:text-right">
-                <h4 class="text-xl font-bold mb-4">روابط سريعة</h4>
-                <ul class="space-y-2">
-                    <li><a href="#hero" class="text-gray-300 hover:text-white transition-colors">الرئيسية</a></li>
-                    <li><a href="#services" class="text-gray-300 hover:text-white transition-colors">خدماتنا</a></li>
-                    <li><a href="#why-us" class="text-gray-300 hover:text-white transition-colors">لماذا نحن</a></li>
-                    <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors">تواصل معنا</a></li>
-                </ul>
-            </div>
-
-            <!-- قسم السوشيال ميديا -->
-            <div class="text-center md:text-right">
-                <h4 class="text-xl font-bold mb-4">تابعنا على</h4>
-                <div class="flex justify-center md:justify-end space-x-4 space-x-reverse">
-                    <a target="_blank " href="https://www.facebook.com/profile.php?id=61579471070182&mibextid=ZbWKwL" class="text-gray-300 hover:text-white transition-colors">
-                        <i class="fa-brands fa-facebook-f text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                        <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                        <i class="fa-brands fa-instagram text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                        <i class="fa-brands fa-linkedin-in text-2xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="container mx-auto px-4 mt-8 text-center border-t border-green-700 pt-6">
-            <p class="text-gray-400 text-sm">&copy; 2024 ThamraTech. جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-
-    <script>
-        // دالة لتسهيل اختيار العناصر من DOM
-        const $ = selector => document.querySelector(selector);
-        const $$ = selector => document.querySelectorAll(selector);
-
-        // JavaScript لتشغيل القائمة المتجاوبة
-        const menuBtn = $('#menu-btn');
-        const mobileMenu = $('#mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            menuBtn.classList.toggle('open');
-        });
-
-        // JavaScript لتشغيل العداد عند التمرير إلى قسم الإنجازات
-        const achievementsSection = $('#achievements');
-        const counters = $$('.card h3[data-target]');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5 // يبدأ عند ظهور 50% من العنصر
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        let current = 0;
-                        const increment = target / 200; // 200 خطوة للوصول للهدف
-
-                        const updateCounter = () => {
-                            if (current < target) {
-                                current += increment;
-                                counter.innerText = Math.ceil(current).toLocaleString();
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.innerText = target.toLocaleString();
-                            }
-                        };
-                        updateCounter();
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        observer.observe(achievementsSection);
-        
-        // JavaScript لنموذج التواصل و رسائل التنبيه (Toast)
-        const contactForm = $('#contact-form');
-        const toastContainer = $('#toast-container');
-
-        const showToast = (title, message, type) => {
-            const toast = document.createElement('div');
-            toast.className = 'toast p-4 rounded-xl shadow-lg border border-opacity-50 flex items-start';
-            
-            let bgColor, borderColor, textColor, iconHtml;
-            if (type === 'success') {
-                bgColor = 'bg-green-100';
-                borderColor = 'border-green-500';
-                textColor = 'text-green-800';
-                iconHtml = '<i class="fa-solid fa-circle-check text-2xl mt-1"></i>';
-            } else if (type === 'error') {
-                bgColor = 'bg-red-100';
-                borderColor = 'border-red-500';
-                textColor = 'text-red-800';
-                iconHtml = '<i class="fa-solid fa-circle-xmark text-2xl mt-1"></i>';
-            } else if (type === 'warning') {
-                bgColor = 'bg-yellow-100';
-                borderColor = 'border-yellow-500';
-                textColor = 'text-yellow-800';
-                iconHtml = '<i class="fa-solid fa-triangle-exclamation text-2xl mt-1"></i>';
-            }
-
-            toast.innerHTML = `
-                <div class="${bgColor} ${borderColor} ${textColor} p-4 rounded-xl shadow-lg flex items-start">
-                    <div class="w-8 h-8 ml-3 flex-shrink-0">${iconHtml}</div>
-                    <div>
-                        <h3 class="font-bold text-lg">${title}</h3>
-                        <p class="text-sm">${message}</p>
-                    </div>
-                </div>
-            `;
-            
-            toastContainer.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 10); // A small delay to trigger the transition
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.remove();
-                }, 500); // Wait for the transition to finish before removing
-            }, 3000);
-        };
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const name = $('#name').value.trim();
-            const email = $('#email').value.trim();
-            const message = $('#message').value.trim();
-
-            if (!name || !email || !message) {
-                showToast('خطأ في الإرسال', 'يرجى ملء جميع الحقول المطلوبة.', 'warning');
-                return;
-            }
-
-            if (name.length < 3) {
-                 showToast('خطأ في الاسم', 'يجب أن يحتوي الاسم على 3 أحرف على الأقل.', 'warning');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showToast('خطأ في الإرسال', 'يرجى إدخال بريد إلكتروني صحيح.', 'error');
-                return;
-            }
-
-            // محاكاة إرسال النموذج بنجاح
-            console.log('Form Submitted:', { name, email, message });
-
-            showToast('تم الإرسال بنجاح', 'سنقوم بالتواصل معك قريباً.', 'success');
-
-            contactForm.reset();
-        });
-    </script>
+    <section class="center">
+        <span class="loader"></span>
+        <h1 style="color: #fff;">SOON</h1>
+        <p style="color: #fff;"> ThamraTech </p>
+    </section>
+    
 </body>
 </html>
-
